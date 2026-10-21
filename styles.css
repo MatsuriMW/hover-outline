@@ -1,0 +1,189 @@
+/* 悬浮目录：平时一列短横线，hover 展开成卡片 */
+.ho-host {
+	position: relative;
+}
+
+.ho {
+	position: absolute;
+	z-index: 30;
+	padding: 6px;
+}
+
+/* 位置：左 / 右 × 上 / 中 / 下（设置里选，默认左中） */
+.ho.ho-left { left: 4px; }
+.ho.ho-right { right: 16px; }   /* 让开滚动条 */
+.ho.ho-top { top: 8px; }
+.ho.ho-middle { top: 50%; transform: translateY(-50%); }
+.ho.ho-bottom { bottom: 8px; }
+
+.ho.is-hidden {
+	display: none;
+}
+
+/* 收起：一条短横线 = 一个目录项 */
+.ho-bars {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 6px;
+	padding: 4px 2px;
+	max-height: 40vh;
+	overflow: hidden;
+	cursor: pointer;
+	transition: opacity 0.12s ease;
+}
+
+.ho-bar {
+	flex: none;
+	height: 2px;
+	border-radius: 1px;
+	background: var(--text-faint);
+	opacity: 0.55;
+	transition: background-color 0.12s ease, opacity 0.12s ease;
+}
+
+.ho-right .ho-bars {
+	align-items: flex-end;
+}
+
+.ho-bar-l0 { width: 8px; }
+.ho-bar-l1 { width: 16px; }
+.ho-bar-l2 { width: 12px; }
+.ho-bar-l3 { width: 8px; }
+
+.ho-bar.is-current {
+	background: var(--text-normal);
+	opacity: 1;
+}
+
+.ho.is-open .ho-bars {
+	opacity: 0;
+}
+
+/* 展开：目录卡片，贴着短横线那一列展开（上 = 顶对齐，中 = 居中，下 = 底对齐） */
+.ho-card {
+	--ho-card-shift: 0px;
+	position: absolute;
+	width: 232px;
+	box-sizing: border-box;
+	max-height: calc(100vh - 180px);
+	overflow-y: auto;
+	padding: 10px;
+	background: var(--ho-card-bg, var(--background-primary));
+	border: 1px solid var(--background-modifier-border);
+	border-radius: 10px;
+	box-shadow: var(--shadow-s);
+	opacity: 0;
+	transform: translateY(var(--ho-card-shift)) scale(0.98);
+	pointer-events: none;
+	transition: opacity 0.12s ease, transform 0.12s ease;
+}
+
+.ho-left .ho-card { left: 0; }
+.ho-right .ho-card { right: 0; }
+.ho-top .ho-card { top: 0; transform-origin: top left; }
+.ho-bottom .ho-card { bottom: 0; transform-origin: bottom left; }
+.ho-middle .ho-card {
+	--ho-card-shift: -50%;
+	top: 50%;
+	max-height: 70vh;
+	transform-origin: center left;
+}
+.ho-right.ho-top .ho-card { transform-origin: top right; }
+.ho-right.ho-bottom .ho-card { transform-origin: bottom right; }
+.ho-right.ho-middle .ho-card { transform-origin: center right; }
+
+.ho.is-open .ho-card {
+	opacity: 1;
+	transform: translateY(var(--ho-card-shift));
+	pointer-events: auto;
+}
+
+/* 标题层级缩进（h2 起每级多 12px） */
+.ho-row.ho-indent-2 { padding-left: 24px; }
+.ho-row.ho-indent-3 { padding-left: 36px; }
+.ho-row.ho-indent-4 { padding-left: 48px; }
+.ho-row.ho-indent-5 { padding-left: 60px; }
+.ho-row.ho-indent-6 { padding-left: 72px; }
+
+.ho-row {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	height: 24px;
+	padding: 0 12px;
+	border-radius: 6px;
+	font-size: var(--font-ui-small);
+	color: var(--text-faint);
+	white-space: nowrap;
+	cursor: pointer;
+	transition: color 0.12s ease;
+}
+
+.ho-row:hover {
+	background: var(--background-modifier-hover);
+}
+
+/* 当前位置那一栏：字是黑的，其余都是 dim */
+.ho-row.is-current {
+	color: var(--text-normal);
+	font-weight: var(--font-medium);
+}
+
+.ho-dash {
+	flex: none;
+	width: 10px;
+	height: 2px;
+	border-radius: 1px;
+	background: var(--text-faint);
+	transition: width 0.15s ease, background-color 0.12s ease;
+}
+
+.ho-row.is-current .ho-dash {
+	background: var(--text-normal);
+}
+
+/* 刚点过的那一栏：前面的 handle 变长一点，整栏往外突出；点别的就恢复 */
+.ho-row.is-picked .ho-dash {
+	width: 16px;
+}
+
+.ho-text {
+	/* 字数在 main.js 里截（MAX_CHARS），这里只防英文长词撑宽 */
+	max-width: 12em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+/* 日记的 DONE / DOING / TODO 分区 */
+.ho-row.is-zone .ho-text {
+	font-size: var(--font-ui-smaller);
+	font-weight: var(--font-semibold);
+	letter-spacing: 0.04em;
+}
+
+/* 层级切换（只在有 h4 以下时出现） */
+.ho-levels {
+	display: flex;
+	gap: 2px;
+	padding: 2px 4px 6px;
+	margin-bottom: 4px;
+	border-bottom: 1px solid var(--background-modifier-border);
+}
+
+.ho-lv {
+	padding: 2px 7px;
+	border-radius: 6px;
+	font-size: var(--font-ui-smaller);
+	color: var(--text-muted);
+	cursor: pointer;
+}
+
+.ho-lv:hover {
+	background: var(--background-modifier-hover);
+}
+
+.ho-lv.is-active {
+	background: var(--interactive-accent);
+	color: var(--text-on-accent);
+}

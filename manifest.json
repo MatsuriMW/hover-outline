@@ -1,0 +1,10 @@
+{
+  "id": "hover-outline",
+  "name": "Hover Outline",
+  "version": "1.1.0",
+  "minAppVersion": "1.4.0",
+  "description": "A hidden table of contents in the corner of the editor: a column of short dashes that expands into an outline card on hover. Choose left or right, top, middle or bottom. Journals are split into DONE / DOING / TODO sections.",
+  "author": "马自立",
+  "authorUrl": "https://github.com/MatsuriMW",
+  "isDesktopOnly": false
+}
