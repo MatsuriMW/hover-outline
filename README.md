@@ -6,6 +6,15 @@ A hidden table of contents in a corner of the editor. It shows a column of short
 
 ![Left: the column of dashes, the current heading darker. Right: the outline card on hover, with a level switcher because the note has an h4.](https://raw.githubusercontent.com/MatsuriMW/hover-outline/main/docs/hover.png)
 
+**Contents**
+
+- [Features](#features)
+- [Install](#install)
+- [Feedback and updates](#feedback-and-updates)
+- [License](#license)
+
+## Features
+
 - Choose the position in settings: left or right, top, middle or bottom (default: left, middle).
 - Lists the top, headings (up to h3 by default, with a level switcher when deeper headings exist), and the bottom.
 - Journal notes are split at horizontal rules into DONE / DOING / TODO sections. The journal folder follows the core Daily notes folder unless set in this plugin's settings.
