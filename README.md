@@ -18,6 +18,10 @@ A hidden table of contents in a corner of the editor. It shows a column of short
 
 Download `main.js`, `manifest.json` and `styles.css` from [Releases](https://github.com/MatsuriMW/hover-outline/releases) into `<vault>/.obsidian/plugins/hover-outline/` and enable it under Settings → Community plugins. Or install with BRAT: `MatsuriMW/hover-outline`.
 
+## Feedback and updates
+
+To follow new features, send feedback or keep up with progress, follow me on Twitter: [@Matsurimywaifu](https://x.com/Matsurimywaifu).
+
 ## License
 
 MIT
